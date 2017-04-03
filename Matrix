@@ -1,0 +1,57 @@
+#include <iostream>
+#include <cmath>
+
+//Un simplu calculator de matrici
+int main()
+{
+	double sw;
+	double f[] = { 0, 0, 0, 0 };
+	double g[] = { 0, 0, 0, 0 };
+	double h[] = { 0, 0, 0, 0 };
+	double det;
+	std::cout << "Cate linii si cate coloane?" << std::endl;
+	std::cout << "Momentan o sa mearga doar cu 2" << std::endl;
+	std::cin >> f[0] >> f[1] >> f[2] >> f[3];
+	std::cin.ignore();
+	std::cout << "Acum pentru a doua" << std::endl;
+	std::cin >> g[0] >> g[1] >> g[2] >> g[3];
+	std::cin.ignore();
+	/*
+	//Adunare
+	for (int i = 0; i < 4; i++) {
+		h[i] = f[i] + g[i];
+	}
+	/**/
+
+	/*
+	//Inmultire
+	h[0] = f[0] * g[0] + f[1] * g[2];
+	h[1] = f[0] * g[1] + f[1] * g[3];
+	h[2] = f[2] * g[0] + f[3] * g[2];
+	h[3] = f[2] * g[1] + f[3] * g[3];
+	/**/
+
+	//Determinantul
+	det = (f[0] * f[3]) - (f[1] * f[2]);
+	if (det == 0) {
+		std::cout << "Matricea asta nu are determinant" << std::endl;
+		return 0;
+	}
+	//Setam A*
+	sw = f[3];
+	f[3] = f[0];
+	f[0] = sw;
+	f[1] = (-1) * f[1];
+	f[2] = (-1) * f[2];
+
+	//Aici se inmulteste determinantul : 1/det(A) * A*
+	for(int k = 0; k < 4; k++) {
+		h[k] = (1 / det) * f[k];
+	}
+
+	
+	for (int j = 0; j < 4; j++) {
+		std::cout << "Element " << j << " is " << h[j] << std::endl;
+	}
+	return 0;
+}
