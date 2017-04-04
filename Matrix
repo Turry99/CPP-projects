@@ -2,40 +2,70 @@
 #include <cmath>
 
 //Un simplu calculator de matrici
+
+double sw;
+double f[] = { 0, 0, 0, 0 };
+double g[] = { 0, 0, 0, 0 };
+double h[] = { 0, 0, 0, 0 };
+double det;
+char actiune;
+
+void Sum(double* h), Multiply(double* h), Invers(double* h);
+
 int main()
 {
-	double sw;
-	double f[] = { 0, 0, 0, 0 };
-	double g[] = { 0, 0, 0, 0 };
-	double h[] = { 0, 0, 0, 0 };
-	double det;
-	std::cout << "Cate linii si cate coloane?" << std::endl;
-	std::cout << "Momentan o sa mearga doar cu 2" << std::endl;
+	/*std::cout << "Cate linii si cate coloane?" << std::endl;
+	std::cout << "Momentan o sa mearga doar cu 2" << std::endl;*/
 	std::cin >> f[0] >> f[1] >> f[2] >> f[3];
 	std::cin.ignore();
 	std::cout << "Acum pentru a doua" << std::endl;
 	std::cin >> g[0] >> g[1] >> g[2] >> g[3];
 	std::cin.ignore();
-	/*
-	//Adunare
+	std::cout << "Alege: Adunare(+) , Inmultire(*), Inversa(i)" << std::endl;
+	std::cin >> actiune;
+	switch (actiune) {
+	case('+'):
+		Sum(h);
+		break;
+	case('*'):
+		Multiply(h);
+		break;
+	case('i'):
+		Invers(h);
+		break;
+	default:
+		std::cout << "Nu ai scris ceva bine" << std::endl;
+		break;
+	}
+
+	for (int j = 0; j < 4; j++) {
+		std::cout << "Element " << j << " is " << h[j] << std::endl;
+	}
+	return 0;
+}
+
+void Sum(double* h) // Aduna matricile
+{
 	for (int i = 0; i < 4; i++) {
 		h[i] = f[i] + g[i];
 	}
-	/**/
+}
 
-	/*
-	//Inmultire
+void Multiply(double* h) // Inmulteste matricile
+{
 	h[0] = f[0] * g[0] + f[1] * g[2];
 	h[1] = f[0] * g[1] + f[1] * g[3];
 	h[2] = f[2] * g[0] + f[3] * g[2];
 	h[3] = f[2] * g[1] + f[3] * g[3];
-	/**/
+}
 
+void Invers(double* h) // Calculeaza inversa
+{
 	//Determinantul
 	det = (f[0] * f[3]) - (f[1] * f[2]);
 	if (det == 0) {
 		std::cout << "Matricea asta nu are determinant" << std::endl;
-		return 0;
+		return;
 	}
 	//Setam A*
 	sw = f[3];
@@ -45,13 +75,7 @@ int main()
 	f[2] = (-1) * f[2];
 
 	//Aici se inmulteste determinantul : 1/det(A) * A*
-	for(int k = 0; k < 4; k++) {
+	for (int k = 0; k < 4; k++) {
 		h[k] = (1 / det) * f[k];
 	}
-
-	
-	for (int j = 0; j < 4; j++) {
-		std::cout << "Element " << j << " is " << h[j] << std::endl;
-	}
-	return 0;
 }
